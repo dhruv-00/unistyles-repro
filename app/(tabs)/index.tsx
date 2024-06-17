@@ -4,9 +4,10 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { UnistylesRuntime } from 'react-native-unistyles';
+import { UnistylesRuntime, useStyles } from 'react-native-unistyles';
 
 export default function HomeScreen() {
+  const { theme } = useStyles();
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -17,6 +18,38 @@ export default function HomeScreen() {
         />
       }
     >
+      <View
+        style={{
+          width: theme.scale(150),
+          aspectRatio: 1,
+          backgroundColor: theme.colors.secondary,
+        }}
+      >
+        <ThemedText>device width {theme.width(100)}</ThemedText>
+        <ThemedText>width {theme.scale(150)}</ThemedText>
+      </View>
+      <View
+        style={{
+          marginTop: UnistylesRuntime.insets.top,
+        }}
+      >
+        <ThemedText>{UnistylesRuntime.themeName}</ThemedText>
+      </View>
+      <Button
+        title="Change Theme"
+        onPress={() => {
+          UnistylesRuntime.setTheme(
+            UnistylesRuntime.themeName === 'light' ? 'dark' : 'light'
+          );
+        }}
+      />
+      <View
+        style={{
+          marginTop: UnistylesRuntime.insets.top,
+        }}
+      >
+        <ThemedText>{UnistylesRuntime.screen.width}</ThemedText>
+      </View>
       <Button
         title="Press me for width"
         onPress={() => {
@@ -31,7 +64,7 @@ export default function HomeScreen() {
           marginTop: UnistylesRuntime.insets.top,
         }}
       >
-        <Text>{UnistylesRuntime.insets.top}</Text>
+        <ThemedText>{UnistylesRuntime.insets.top}</ThemedText>
       </View>
       <Button
         title="Press me for insets"
